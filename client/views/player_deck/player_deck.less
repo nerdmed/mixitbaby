@@ -16,6 +16,11 @@
 			width: 30%;
 			height: 100%;
 			background-color: rgba(231, 194, 79, 0.2);
+			border-right: 1px solid rgb(195, 17, 17);
+			border-radius: 0;
+
+			webkit-box-shadow: none;
+			box-shadow: none;
 		}
 	}
 	.audioplayer{
@@ -33,6 +38,7 @@
 			border-right: 1px solid #DFDFDF;
 			text-align: center;
 			line-height: 49px;
+			.noSelect();
 			.transition();
 			.hand;
 			&:hover{
@@ -77,6 +83,7 @@
 			font-size: 18px;
 			padding-left: 20px;
 			margin-top: 10px;
+			text-align: left;
 			.truncate();
 		}
 

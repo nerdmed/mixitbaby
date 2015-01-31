@@ -7,7 +7,10 @@ YouTube = {
 		
 		callback = callback || log;
 		Meteor.call("YouTube/getStream", url, options, function (err, res) {
-			callback(err, res.stream.url, res);
+			err = err || res.err; // future can also return a normal object
+			if (err) return console.warn(err);
+
+			callback(err, res.stream.url, res.info);
 		});
 	}
 };

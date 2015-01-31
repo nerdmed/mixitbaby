@@ -1,10 +1,11 @@
 <template name="Playlist">
-	<div class="well">
+	<h2>Your Playlist</h2>
+	<div class="container playlist">
 		<div class="list-group">
 		{{#each songs}}
 			{{> Playlist_Song this}}
 		{{else}}
-			<a href="#" class="list-group-item disabled">No songs yet</a>
+			<a class="list-group-item disabled">No songs yet</a>
 		{{/each}}
 		</div>
 
@@ -16,11 +17,11 @@
 
 
 <template name="Playlist_Song">
-	<a href="#" class="list-group-item {{class "active"}}">
+	<a class="list-group-item {{class "active"}}" draggable="{{#if data_url}}true{{/if}}">
 	{{#if data_url}}
 		{{title}} – {{artist}} // {{ bpm }} -- {{ duration }}
 	{{else}}
-		<input id="data_url" type="text" placeholder="Song URL">
+		{{> UrlInput }}
 	{{/if}}
 	</a>
 </template>
