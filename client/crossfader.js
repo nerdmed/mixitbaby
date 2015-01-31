@@ -1,6 +1,8 @@
 Crossfader = function(obj) {
     this.audioContext = new AudioContext();
 
+    this.updateTime = 100;
+
     this.playerDecks = obj.playerDecks;
 
     this.el = obj.el;
@@ -32,6 +34,30 @@ _.extend(Crossfader.prototype, {
         this.gain0.gain.value = gain0value;
         this.gain1.gain.value = gain1value;
 
-        // console.log(this.gain0.gain.value, this.gain1.gain.value);
+        console.log(this.gain0.gain.value, this.gain1.gain.value);
+    },
+
+    autoFade: function(direction) {
+        // direction = 0: left
+        // drection = 1: right
+
+        var self = this;
+
+        if (direction === 0) {
+            self.el.value -= 1;
+        } 
+
+        if (direction === 1) {
+            self.el.value = self.el.value * 1 + 1;
+        }
+
+        self.el.value = Math.max(self.el.value, self.el.min);
+        self.el.value = Math.min(self.el.value, self.el.max);
+
+        if (self.el.value != self.el.min && self.el.value != self.el.max) {
+            setTimeout(function() {
+                self.autoFade(direction);
+            }, self.updateTime);
+        }
     }
 });
