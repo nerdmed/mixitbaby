@@ -1,20 +1,37 @@
 /*****************************************************************************/
 /* UrlInput: Event Handlers and Helpersss .js*/
 /*****************************************************************************/
-Template.UrlInput.events({
- 'keyup .url input, change .url input': function(e) {
-     var instance = Template.instance();
-     var elem = e.currentTarget;
-     var url = elem.value;
-     var isValid;
-     if (url.indexOf("youtube") > 0 || url.indexOf("soundcloud") > 0) {
-         isValid = urlCheck(url);
-     } else {
-         isValid = false;
-     }
 
-     instance.valid.set(isValid);
- }
+Template.UrlInput.events({
+    'keyup .url input': function(e) {
+        var instance = Template.instance();
+        var elem = e.currentTarget;
+        var url = elem.value;
+        var isValid;
+        if (url.indexOf("youtube") > 0 || url.indexOf("soundcloud") > 0) {
+            isValid = urlCheck(url);
+        } else {
+            isValid = false;
+        }
+        
+        instance.valid.set(isValid);
+    },
+    'change .url input': function (e) {
+        var elem = e.currentTarget;
+        var url = elem.value;
+
+        if (url.indexOf("youtube") > -1) {
+            YouTube.lookup(url, function (err, url, res) {
+                if (err) return console.warn(err);
+                console.log(res.info.title, url);
+            });
+        } else if (url.indexOf("soundcloud") > -1) {
+            Soundcloud.lookup(url, function (err, res) {
+                if (err) return console.warn(err);
+                console.log(res);
+            });
+        }
+    }
 });
 
 Template.UrlInput.helpers({

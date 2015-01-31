@@ -20,7 +20,7 @@
 	{{#if data_url}}
 		{{title}} – {{artist}} // {{ bpm }} -- {{ duration }}
 	{{else}}
-		<input id="data_url" type="text" placeholder="Song URL">
+		{{> UrlInput }}
 	{{/if}}
 	</a>
 </template>
