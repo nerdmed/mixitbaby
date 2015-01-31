@@ -1,11 +1,3 @@
-var saveSong = function (streamUrl, id) {
-    Songs.update(id, {
-        $set:{
-            data_url: streamUrl
-        }
-    });
-}
-
 /*****************************************************************************/
 /* UrlInput: Event Handlers and Helpersss .js*/
 /*****************************************************************************/
@@ -28,13 +20,40 @@ Template.UrlInput.events({
         var instance = Template.instance();
         var elem = e.currentTarget;
         var url = elem.value;
+        var isLoading = instance.source.isLoading;
+        var type;
 
-        instance.source.isLoading.set(true);
-        console.log("LOADING")
+        if(url.length === 0) return isLoading.set(false);
+        
+        isLoading.set(true);
+
         if (url.indexOf("youtube") > -1) {
+            type = "YouTube";
             YouTube.lookup(url, saveSong);
         } else if (url.indexOf("soundcloud") > -1) {
+            type = "SoundCloud";
             Soundcloud.lookup(url, saveSong);
+        }
+
+        function saveSong(err, stream_url, info) {
+            elem.value = "";
+            instance.source.isLoading.set(false);
+            if (err) return console.warn(err);
+            instance.url = stream_url;
+            instance.info = info;
+            if(url){
+                Songs.insert({
+                    source_type: type,
+                    cover: info.artwork_url,
+                    title: info.title,
+                    data_url: instance.url
+                }, function(err, id){
+                    if(instance.source.songId) instance.source.songId.set(id);
+                    if(instance.source.isReady) instance.source.isReady.set(true);
+                });
+                console.log(info.title, stream_url);
+            }
+
         }
     }
 });
@@ -54,38 +73,16 @@ Template.UrlInput.helpers({
 });
 
 
-Template.UrlInput.rendered = function () {
-    var instance = this;
-
-    // instance.autorun(function(){
-    //     var url = instance.url.get();
-
-    //     // Database Insert - on callback 
-
-
-    //     if(instance.source) instance.source.isReady.set(true);
-
-    // });
-}
-
 /*****************************************************************************/
 /* UrlInput: Lifecycle Hooks */
 /*****************************************************************************/
 Template.UrlInput.created = function () {
   this.valid = new ReactiveVar();
   this.source = Template.currentData() || {};
-  this.url =  new ReactiveVar();
   if(!this.source.isLoading) this.source.isLoading = new ReactiveVar(false);
 };
 
-function saveSong(err, stream_url, info) {
-    var instance = Template.instance();
-    instance.source.isLoading.set(false);
-    if (err) return console.warn(err);
-    instance.url.set(stream_url);
-    instance.info = info;
-    console.log(info.title, stream_url);
-}
+
 
 
 

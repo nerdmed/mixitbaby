@@ -1,4 +1,5 @@
 <template name="PlayerDeck">
+	{{#with getSongData}}
 	<div class="PlayerDeck {{playing}}">
 		<div class="waveform row">
 			<div class="progress">	
@@ -18,11 +19,12 @@
 		</div>
 		<div class="song-info row">
 
-			<div class="col-xs-3 song-image" style="background-image:url(/catCover.jpg);"></div>
+			<div class="col-xs-3 song-image" style="background-image:url({{getCover}});"></div>
 
 			<h3 class="song-title col-xs-9">
-			This is a very nice Song - Dr. Dre</h3>
-			<span class="source">Youtube</span>
+			{{title}}</h3>
+			<span class="source">{{source_type}}</span>
 		</div>
 	</div>
+	{{/with}}
 </template>

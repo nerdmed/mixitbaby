@@ -8,10 +8,8 @@
 			<a class="list-group-item disabled">No songs yet</a>
 		{{/each}}
 		</div>
-
-		<button id="add-song" class="btn btn-block btn-lg btn-info">
-			Add song
-		</button>
+		<span>Add more songs:</span>
+		{{> UrlInput}}
 	</div>
 </template>
 
@@ -19,9 +17,7 @@
 <template name="Playlist_Song">
 	<a class="list-group-item {{class "active"}}" draggable="{{#if data_url}}true{{/if}}">
 	{{#if data_url}}
-		{{title}} – {{artist}} // {{ bpm }} -- {{ duration }}
-	{{else}}
-		{{> UrlInput this }}
+		{{title}}  <!-- //– {{artist}} // {{ bpm }}  {{ duration }} -->
 	{{/if}}
 	</a>
 </template>
