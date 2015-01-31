@@ -23,4 +23,3 @@ Template.Source.helpers({
 Template.Source.created = function () {
   this.isReady = new ReactiveVar(true);
 };
-
