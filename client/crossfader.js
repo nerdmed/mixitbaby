@@ -22,8 +22,8 @@ Crossfader = function(obj) {
 }
 
 _.extend(Crossfader.prototype, {
-    fade: function() {
-        var x = parseInt(this.el.value) / parseInt(this.el.max);
+    fade: function(value, max) {
+        var x = parseInt(value) / parseInt(max);
 
         // Use an equal-power crossfading curve:
         var gain0value = Math.cos(x * 0.5 * Math.PI);
