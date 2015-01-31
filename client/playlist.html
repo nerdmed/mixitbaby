@@ -1,0 +1,26 @@
+<template name="Playlist">
+	<div class="well">
+		<div class="list-group">
+		{{#each songs}}
+			<a href="#" class="list-group-item {{class "active"}}">
+			{{#if data_url}}
+				{{title}} – {{artist}} // {{ bpm }} -- {{ duration }}
+			{{else}}
+				{{> URL_Input }}
+			{{/if}}
+			</a>
+		{{else}}
+			<a href="#" class="list-group-item disabled">No songs yet</a>
+		{{/each}}
+		</div>
+
+		<button id="add-song" class="btn btn-block btn-lg btn-info">
+			Add song
+		</button>
+	</div>
+</template>
+
+
+<template name="URL_Input">
+	<input type="text" placeholder="abc">
+</template>
