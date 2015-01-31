@@ -1,0 +1,97 @@
+/*****************************************************************************/
+/* PlayerDeck: Style */
+/*****************************************************************************/
+@import 'client/global.less';
+
+.PlayerDeck{
+	
+	.waveform{
+		height: 140px;
+		width: 100%;
+		background-color: rgb(239, 239, 239);
+		background-image: url(/wave.png);
+		background-size: 100% 100%;
+
+		.progress{
+			width: 30%;
+			height: 100%;
+			background-color: rgba(231, 194, 79, 0.2);
+		}
+	}
+	.audioplayer{
+		height: 50px;
+		width: 100%;
+		border: 1px solid #DFDFDF;
+
+		.control{
+			height: 100%;
+			color: rgb(64, 160, 152);
+		}
+
+		.button{
+			background-color: white;
+			border-right: 1px solid #DFDFDF;
+			text-align: center;
+			line-height: 49px;
+			.transition();
+			.hand;
+			&:hover{
+				background-color: #fafafa;
+			}
+
+		}
+
+		.play-pause{
+			float:left;
+			.button;
+			width: 60px;
+
+		}
+
+		.ques{
+			width: 60%;
+			float:left;
+			li.que{
+				.button;
+				list-style: none;
+				display: block;
+				width: 20%;
+				height: 100%;
+				float: left;
+			}
+		}
+		.volume{
+			float:right;
+			width: 80px;
+			.button;
+			border-right: none;
+			border-left: 1px solid #DFDFDF;
+
+		}
+	}
+
+	.song-info{
+		width: 100%;
+		margin-top: 20px;
+		.song-title{
+			font-size: 18px;
+			padding-left: 20px;
+			margin-top: 10px;
+			.truncate();
+		}
+
+		.song-image{
+			height: 100px;
+			width: 100px;
+			background-size: cover;
+		}
+
+		.source{
+			padding-left: 20px;
+
+		}
+
+
+	}
+
+}

@@ -1,0 +1,29 @@
+<template name="PlayerDeck">
+	<div class="PlayerDeck {{playing}}">
+		<div class="waveform row">
+			<div class="progress">	
+			</div>
+		</div>
+		<div class="audioplayer row">
+			<div class="play-pause control">
+				<span class="glyphicon {{playingClass}}"></span>
+			</div>
+			<div class="ques control">
+				 <li class="que que-1">1</li>
+				 <li class="que que-2">2</li>
+				 <li class="que que-3">3</li>
+			 	 <li class="que que-4">4</li>
+				 <li class="que que-5">5</li>
+			</div>
+			<div class="volume control"> 100%</div>
+		</div>
+		<div class="song-info row">
+
+			<div class="col-xs-3 song-image" style="background-image:url(/catCover.jpg);"></div>
+
+			<h3 class="song-title col-xs-9">
+			This is a very nice Song - Dr. Dre</h3>
+			<span class="source">Youtube</span>
+		</div>
+	</div>
+</template>

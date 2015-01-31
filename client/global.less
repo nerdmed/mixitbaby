@@ -1,0 +1,39 @@
+/* CSS declarations go here */
+.truncate(){
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hand(){
+  cursor: pointer; // "cursor: hand" is only used by IE < 6
+}
+
+.transition(@duration:0.2s; @ease:ease-out) {
+  -webkit-transition: all @duration @ease;
+  -moz-transition: all @duration @ease;
+  -o-transition: all @duration @ease;
+  transition: all @duration @ease;
+}
+
+.middle(){
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.hori-middle(){
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.vert-middle(){
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+

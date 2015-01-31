@@ -1,0 +1,9 @@
+<template name="Source">
+	<div class="Source">
+		{{#if isReady}}
+			{{> PlayerDeck}}
+			{{else}}
+			{{> UrlInput}}
+		{{/if}}
+	</div>
+</template>
