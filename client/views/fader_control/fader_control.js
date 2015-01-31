@@ -38,7 +38,7 @@ Template.fader_control.events({
     },
 });
 
-function fade (e) {
+function fade(e) {
 	if (!dragging) return;
 	crossfader.fade(e.currentTarget);
 }
