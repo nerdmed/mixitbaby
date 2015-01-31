@@ -1,15 +1,3 @@
-/*****************************************************************************/
-/* Source: Event Handlers and Helpersss .js*/
-/*****************************************************************************/
-Template.Source.events({
-  /*
-   * Example:
-   *  'click .selector': function (e, tmpl) {
-   *
-   *  }
-   */
-});
-
 Template.Source.helpers({
   isReady: function () {
     var instance = Template.instance();
@@ -17,9 +5,6 @@ Template.Source.helpers({
   }
 });
 
-/*****************************************************************************/
-/* Source: Lifecycle Hooks */
-/*****************************************************************************/
 Template.Source.created = function () {
   this.isReady = new ReactiveVar(true);
 };
