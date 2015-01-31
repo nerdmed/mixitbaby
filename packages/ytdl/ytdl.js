@@ -17,7 +17,7 @@ Meteor.methods({
 		}).on("info", function (info, stream) {
 			future.return({info: info, stream: stream});
 		}).on("error", function (err) {
-			future.throw(err); // this is untested
+			future.return({err: err}); // this is untested
 		});
 
 		this.unblock();

@@ -23,11 +23,13 @@ Template.UrlInput.events({
         if (url.indexOf("youtube") > -1) {
             YouTube.lookup(url, function (err, stream_url, info) {
                 if (err) return console.warn(err);
+                console.log(info);
                 console.log(info.title, stream_url);
             });
         } else if (url.indexOf("soundcloud") > -1) {
             Soundcloud.lookup(url, function (err, stream_url, info) {
                 if (err) return console.warn(err);
+                console.log(info);
                 console.log(info.title, stream_url);
             });
         }
