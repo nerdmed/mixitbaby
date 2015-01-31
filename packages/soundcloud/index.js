@@ -17,8 +17,9 @@ function makeAPICall (location, callback) {
 	callback = callback || log;
 	HTTP.get(location, function (err, res) {
 		if (err) return console.warn("Error", err);
-		console.log(res.data);
-		callback(err, res.data.stream_url + "?client_id=" + client_id);
+		var info = res.data;
+		var stream_url = res.data.stream_url + "?client_id=" + client_id;
+		callback(err, stream_url, info);
 	});
 }
 
