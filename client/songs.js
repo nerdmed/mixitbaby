@@ -1,11 +1,11 @@
-Songs = new Mongo.Collection(null)
+Songs = new Mongo.Collection("songs")
 Songs.insert({
     _id: "1",
     title: "Warm Thoughts",
     artist: "Flume",
     bpm: 85,
     duration: 228,
-    url: "/escortflow.mp3",
+    data_url: "/escortflow.mp3",
     active: true
 });
 Songs.insert({
@@ -14,7 +14,7 @@ Songs.insert({
     artist: "ephmr",
     bpm: 157,
     duration: 208,
-    url: "/fergsomnia.mp3",
+    data_url: "/fergsomnia.mp3",
     active: false
 });
 Songs.insert({

@@ -1,3 +1,11 @@
+var saveSong = function (streamUrl, id) {
+    Songs.update(id, {
+        $set:{
+            data_url: streamUrl
+        }
+    });
+}
+
 /*****************************************************************************/
 /* UrlInput: Event Handlers and Helpersss .js*/
 /*****************************************************************************/
@@ -16,21 +24,24 @@ Template.UrlInput.events({
         
         instance.valid.set(isValid);
     },
-    'change .url input': function (e) {
+    'change .url input': function (e, tpl) {
         var elem = e.currentTarget;
         var url = elem.value;
+        var songId = tpl.data._id;
 
         if (url.indexOf("youtube") > -1) {
             YouTube.lookup(url, function (err, stream_url, info) {
                 if (err) return console.warn(err);
                 console.log(info);
                 console.log(info.title, stream_url);
+                saveSong(stream_url, songId)
             });
         } else if (url.indexOf("soundcloud") > -1) {
             Soundcloud.lookup(url, function (err, stream_url, info) {
                 if (err) return console.warn(err);
                 console.log(info);
                 console.log(info.title, stream_url);
+                saveSong(stream_url, songId)
             });
         }
     }
