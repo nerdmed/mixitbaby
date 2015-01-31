@@ -5,6 +5,9 @@ Template.fader_control.rendered = function(){
 		value: 50,
 		change: function( event, ui ) {
 			crossfader.fade(ui.value, 100);
+		},
+		slide: function( event, ui ) {
+			crossfader.fade(ui.value, 100);
 		}
 	});
 	
