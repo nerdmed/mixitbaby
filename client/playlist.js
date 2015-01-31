@@ -1,14 +1,18 @@
 Template.Playlist.events({
 	'click #add-song': function (e, tmpl) {
-		Playlists.update(this._id, {
-			$addToSet: {
-				songs: { // new Song()
-					_id: Meteor.uuid(),
-					title: "untitled",
-					artist: "unknown artist"
+		var self = this
+		Songs.insert({
+			title: "untitled",
+			artist: "unknown artist",
+			url: $('#data_url').val()
+		}, function (err, res) {
+			Playlists.update(self._id, {
+				$addToSet: {
+					songs: res
 				}
-			}
-		});
+			});
+		})
+
 	},
 	'dragstart .list-group-item': function (e, tmpl) {
 		e.originalEvent.dataTransfer.setData('text/song-id', this._id);

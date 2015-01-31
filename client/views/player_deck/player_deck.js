@@ -1,3 +1,6 @@
+var currentTrack = new ReactiveVar(0);
+var playlist = Playlists.findOne();
+
 /*****************************************************************************/
 /* PlayerDeck: Event Handlers and Helpersss .js*/
 /*****************************************************************************/
@@ -19,7 +22,14 @@ Template.PlayerDeck.helpers({
         var playing = instance.player.playing.get();
         if (playing === false) return "glyphicon-play";
         else if (playing === true) return "glyphicon-pause";
+    },
+    currentSong: function () {
+        return Songs.findOne(playlist.songs[currentTrack.get()]);
+    },
+    nextSong: function (){
+        return Songs.findOne(playlist.songs[currentTrack.get()+1]);
     }
+
 });
 
 /*****************************************************************************/
@@ -30,6 +40,20 @@ Template.PlayerDeck.created = function() {
 };
 
 
+Template.PlayerDeck.rendered = function () {
+    var player = $("#player")[0];
+    this.autorun(function () {
+        //player.pause();
+        //$(player).attr("src", Songs.findOne(playlist.songs[currentTrack.get()])).url;
+        //player.play();
+
+    });
+    $("#player").on('ended', function () {
+        var ct = currentTrack.get();
+        ct++;
+        currentTrack.set(ct);
+    });
+};
 
 /*****************************************************************************/
 /* PlayerDeck: Object */
