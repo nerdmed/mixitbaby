@@ -14,4 +14,5 @@ twbs:bootstrap
 reactive-var
 less
 sacha:spin
+flowkey:hotkeys
 mizzao:jquery-ui

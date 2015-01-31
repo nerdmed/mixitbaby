@@ -9,10 +9,11 @@ Meteor.methods({
 		options = options || {};
 		var future = new Future();
 
-		ytdl(url || "https://www.youtube.com/watch?v=bQz3A8qy0VE", {
+		ytdl(url, {
 			filter: function (f) {
+				console.log(f.audioEncoding, f.audioBitrate);
 				return (f.audioEncoding === (options.audioEncoding || "aac")
-					 && f.audioBitrate == (options.audioBitrate || 128));
+					 && f.audioBitrate == (options.audioBitrate || 24));
 			}
 		}).on("info", function (info, stream) {
 			future.return({info: info, stream: stream});

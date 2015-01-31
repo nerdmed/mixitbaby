@@ -10,11 +10,19 @@
 				<span class="glyphicon {{playingClass}}"></span>
 			</div>
 			<div class="cues control">
-				 <li class="cue" data-cuepoint="1">1</li>
-				 <li class="cue" data-cuepoint="2">2</li>
-				 <li class="cue" data-cuepoint="3">3</li>
-			 	 <li class="cue" data-cuepoint="4">4</li>
-				 <li class="cue" data-cuepoint="5">5</li>
+				{{#unless deckId}} {{!-- deckId is 1 or 0 --}}
+				<li class="cue" data-cuepoint="1">1</li>
+				<li class="cue" data-cuepoint="2">2</li>
+				<li class="cue" data-cuepoint="3">3</li>
+			 	<li class="cue" data-cuepoint="4">4</li>
+				<li class="cue" data-cuepoint="5">5</li>
+				{{else}}
+				<li class="cue" data-cuepoint="6">6</li>
+				<li class="cue" data-cuepoint="7">7</li>
+				<li class="cue" data-cuepoint="8">8</li>
+			 	<li class="cue" data-cuepoint="9">9</li>
+				<li class="cue" data-cuepoint="10">10</li>
+				{{/unless}}
 			</div>
 		</div>
 		<div class="song-info row">
