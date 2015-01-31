@@ -18,7 +18,7 @@ function makeAPICall (location, callback) {
 	HTTP.get(location, function (err, res) {
 		if (err) return console.warn("Error", err);
 		console.log(res.data);
-		callback(res.data.stream_url + "?client_id=" + client_id);
+		callback(err, res.data.stream_url + "?client_id=" + client_id);
 	});
 }
 
@@ -26,6 +26,6 @@ function setAPIKey (key) {
 	client_id = key;
 }
 
-function log (message) {
-	console.log(message);
+function log (message, message2) {
+	console.log(message, message2);
 }

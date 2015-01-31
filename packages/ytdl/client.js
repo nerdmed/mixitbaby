@@ -1,14 +1,18 @@
 YouTube = {
 	lookup: function (url, options, callback) {
+		if (_.isFunction(options) && typeof callback === "undefined") {
+			callback = options;
+			options = {};
+		}
+		
 		callback = callback || log;
 		Meteor.call("YouTube/getStream", url, options, function (err, res) {
-			console.log(err, res);
-			callback(res.stream.url);
+			callback(err, res.stream.url, res);
 		});
 	}
 };
 
 
-function log (message) {
-	console.log(message);
+function log (message, message2) {
+	console.log(message, message2);
 }
