@@ -2,6 +2,7 @@ Template.fader_control.rendered = function(){
 	$( "#slider" ).slider({
 		min:0,
 		max: 100,
+		value: 50,
 		change: function( event, ui ) {
 			crossfader.fade(ui.value, 100);
 		}

@@ -1,7 +1,5 @@
-Songs = new Mongo.Collection("songs")
-
-if(Meteor.isServer){
-    Songs.remove({});    
+if(Meteor.isClient){
+	Songs = new Mongo.Collection(null)
 }
 
 // if(Songs.find().count() === 0){

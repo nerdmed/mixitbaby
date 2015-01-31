@@ -32,6 +32,6 @@ _.extend(Crossfader.prototype, {
         this.gain0.gain.value = gain0value;
         this.gain1.gain.value = gain1value;
 
-        console.log(this.gain0.gain.value, this.gain1.gain.value);
+        // console.log(this.gain0.gain.value, this.gain1.gain.value);
     }
 });
