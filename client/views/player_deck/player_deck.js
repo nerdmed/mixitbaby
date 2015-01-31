@@ -1,7 +1,27 @@
 /*****************************************************************************/
 /* PlayerDeck: Event Handlers and Helpersss .js*/
 /*****************************************************************************/
+
+var cuepoints = new Array(5);
+
 Template.PlayerDeck.events({
+    'mousedown .cue': function (e, tmpl) {
+        var cuepoint = e.currentTarget.dataset.cuepoint - 1; // 1-indexed
+        var deck = Template.instance().deck;
+        
+        // Play or set cuepoint
+        if (cuepoints[cuepoint] !== undefined) {
+            deck.audio.currentTime = cuepoints[cuepoint];
+            if (deck.audio.paused) deck.play();
+        } else { // set cuepoint
+            cuepoints[cuepoint] = deck.audio.currentTime;
+        }
+    },
+    'click .waveform': function (e, tmpl) {
+        var deck = Template.instance().deck;
+        var time = e.offsetX / parseInt(getComputedStyle($(".PlayerDeck .waveform").get(0)).width) * deck.duration;
+        deck.audio.currentTime = time;
+    },
     'click .play-pause ': function(e, tpl) {
         tpl.deck.playing.get() ? tpl.deck.pause() : tpl.deck.play();
     }
@@ -26,7 +46,6 @@ Template.PlayerDeck.helpers({
         return song.cover || "/catCover.jpg";
 
     }
-
 });
 
 /*****************************************************************************/
@@ -56,6 +75,26 @@ Template.PlayerDeck.helpers({
         return Songs.findOne(instance.songId.get());
     }
 });
+
+Template.PlayerDeck.rendered = function () {
+    var progress = this.$(".PlayerDeck .waveform .progress").get(0);
+    var deck = this.deck;
+
+
+    $(deck.audio).on('canplay', function (e) {
+        // so we don't have to keep reading from the DOM:
+        deck.duration = this.duration;
+    });
+
+    $(deck.audio).on('timeupdate', function (e) {
+        progress.style.width = (this.currentTime / this.duration * 100) + "%";
+    });
+};
+
+Template.PlayerDeck.destroyed = function () {
+    $(this.deck.audio).off(); // remove all event listeners
+};
+
 
 /*****************************************************************************/
 /* PlayerDeck: Object */
