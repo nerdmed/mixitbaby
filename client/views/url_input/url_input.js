@@ -24,25 +24,17 @@ Template.UrlInput.events({
         
         instance.valid.set(isValid);
     },
-    'change .url input': function (e, tpl) {
+    'change .url input': function (e) {
+        var instance = Template.instance();
         var elem = e.currentTarget;
         var url = elem.value;
-        var songId = tpl.data._id;
 
+        instance.source.isLoading.set(true);
+        console.log("LOADING")
         if (url.indexOf("youtube") > -1) {
-            YouTube.lookup(url, function (err, stream_url, info) {
-                if (err) return console.warn(err);
-                console.log(info);
-                console.log(info.title, stream_url);
-                saveSong(stream_url, songId)
-            });
+            YouTube.lookup(url, saveSong);
         } else if (url.indexOf("soundcloud") > -1) {
-            Soundcloud.lookup(url, function (err, stream_url, info) {
-                if (err) return console.warn(err);
-                console.log(info);
-                console.log(info.title, stream_url);
-                saveSong(stream_url, songId)
-            });
+            Soundcloud.lookup(url, saveSong);
         }
     }
 });
@@ -54,15 +46,47 @@ Template.UrlInput.helpers({
 
         if (valid === false) return "not-valid";
         else if (valid === true) return "valid";
+    },
+    isLoading: function(){
+        var instance = Template.instance();
+        return instance.source.isLoading.get();
     }
 });
+
+
+Template.UrlInput.rendered = function () {
+    var instance = this;
+
+    // instance.autorun(function(){
+    //     var url = instance.url.get();
+
+    //     // Database Insert - on callback 
+
+
+    //     if(instance.source) instance.source.isReady.set(true);
+
+    // });
+}
 
 /*****************************************************************************/
 /* UrlInput: Lifecycle Hooks */
 /*****************************************************************************/
 Template.UrlInput.created = function () {
   this.valid = new ReactiveVar();
+  this.source = Template.currentData() || {};
+  this.url =  new ReactiveVar();
+  if(!this.source.isLoading) this.source.isLoading = new ReactiveVar(false);
 };
+
+function saveSong(err, stream_url, info) {
+    var instance = Template.instance();
+    instance.source.isLoading.set(false);
+    if (err) return console.warn(err);
+    instance.url.set(stream_url);
+    instance.info = info;
+    console.log(info.title, stream_url);
+}
+
 
 
 function urlCheck(input) {

@@ -5,6 +5,18 @@ Template.Source.helpers({
   }
 });
 
+/*****************************************************************************/
+/* Source: Lifecycle Hooks */
+/*****************************************************************************/
 Template.Source.created = function () {
-  this.isReady = new ReactiveVar(true);
+  this.isReady = new ReactiveVar(false);
+  this.isLoading = new ReactiveVar(false);
 };
+
+Template.Source.helpers({
+  getSource: function () {
+    return Template.instance();
+  }
+});
+
+

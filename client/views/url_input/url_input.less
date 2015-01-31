@@ -2,6 +2,7 @@
 /* UrlInput: Style */
 /*****************************************************************************/
 .url{
+	position: relative;
 	.source-url{
 		width: 100%;
 		padding: 10px 20px;
@@ -12,6 +13,14 @@
 	}
 	&.not-valid{
 		border: 1px solid fade(red, 70%);
+	}
+
+	.load-spinner{
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 100%;
+		width: 50px;
 	}
 
 }

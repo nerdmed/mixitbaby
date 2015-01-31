@@ -37,22 +37,7 @@ Template.PlayerDeck.helpers({
 /*****************************************************************************/
 Template.PlayerDeck.created = function() {
     this.deck = new PlayerDeck();
-};
-
-
-Template.PlayerDeck.rendered = function () {
-    var player = $("#player")[0];
-    this.autorun(function () {
-        //player.pause();
-        //$(player).attr("src", Songs.findOne(playlist.songs[currentTrack.get()])).url;
-        //player.play();
-
-    });
-    $("#player").on('ended', function () {
-        var ct = currentTrack.get();
-        ct++;
-        currentTrack.set(ct);
-    });
+    this.source  = Template.currentData();
 };
 
 /*****************************************************************************/

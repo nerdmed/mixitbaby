@@ -1,5 +1,13 @@
 <template name="UrlInput">
 	<div class="url {{isValid}}">
 		<input type="text" class="source-url"  placeholder="Paste: YouTube, Soundcloud and Spotify links"/>
+		<div class="load-spinner">
+
+		{{#if isLoading}}
+			{{#with smallBlackSpinner}}
+				{{> spinner}}
+			{{/with}}
+		{{/if}}
+		</div>
 	</div>
 </template>

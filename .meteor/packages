@@ -13,4 +13,4 @@ http
 twbs:bootstrap
 reactive-var
 less
-reywood:publish-composite
+sacha:spin
