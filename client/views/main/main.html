@@ -12,10 +12,13 @@
 				<div class="col-xs-6">
 				{{> Source}}
 				</div>
-				{{> fader_control}}
+				{{#if decksReady}}
+					{{> fader_control}}
+				{{/if}}
 			</div>
 		</div>
 	</div>
-
-	{{> Playlist currentPlaylist }}
+	{{#if showList}}
+		{{> Playlist currentPlaylist }}
+	{{/if}}
 </template>

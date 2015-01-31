@@ -1,6 +1,8 @@
 Songs = new Mongo.Collection("songs")
 
-Songs.remove({});
+if(Meteor.isServer){
+    Songs.remove({});    
+}
 
 // if(Songs.find().count() === 0){
 //     Songs.insert({

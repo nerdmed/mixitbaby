@@ -44,7 +44,7 @@ Template.PlayerDeck.created = function() {
         if(songId){
             var song = Songs.findOne(songId);
             if(song.data_url && song.title){
-                instance.player.audio.src = song.data_url;
+                instance.deck.audio.src = song.data_url;
             }
         }
     })
@@ -65,7 +65,7 @@ function PlayerDeck(obj) {
     this.loading = new ReactiveVar();
     this.source = new ReactiveVar();
     this.playing = new ReactiveVar(false);
-    MainMixer.playerDecks.push(this);
+    MainMixer.add(this);
 }
 
 _.extend(PlayerDeck.prototype, {
