@@ -7,7 +7,7 @@ Crossfader = function(obj) {
 
     this.max = obj.max;
     this.min = obj.min;
-    this.sliderValue = obj.sliderValue;
+    // this.sliderValue = obj.sliderValue;
 
     this.autofading = false;
 
@@ -30,10 +30,10 @@ Crossfader = function(obj) {
 _.extend(Crossfader.prototype, {
     calculateGains: function(value) {
 
-        self.sliderValue = value;
-        console.log(self.sliderValue);
+        // self.sliderValue = value;
+        // console.log(self.sliderValue);
 
-        var x = parseInt(self.sliderValue) / this.max;
+        var x = parseInt(value) / this.max;
 
         // Use an equal-power crossfading curve:
         var gain0value = Math.cos(x * 0.5 * Math.PI);
@@ -48,8 +48,8 @@ _.extend(Crossfader.prototype, {
     autoFade: function(direction) {
         var self = this;
 
-        if (self.autofading){
-            if (direction){
+        if (self.autofading) {
+            if (direction) {
                 self.autofading = false;
             }
 
@@ -66,31 +66,38 @@ _.extend(Crossfader.prototype, {
 
         var self = this;
 
-        if (self.autoFadeDirection == "left") {
-            self.sliderValue -= 1;
-        }
+        if (self.autofading) {
+            if (self.autoFadeDirection == "left") {
+                // self.sliderValue -= 1;
+                self.setUIValue(self.getUIValue() - 1);
+            }
 
-        if (self.autoFadeDirection == "right") {
-            self.sliderValue += 1;
-        }
+            if (self.autoFadeDirection == "right") {
+                // self.sliderValue += 1;
+                self.setUIValue(self.getUIValue() + 1);
+            }
 
-        self.calculateGains(self.sliderValue);
-        self.setUIValue(self.sliderValue);
+            self.calculateGains(self.getUIValue());
+            self.setUIValue(self.getUIValue());
 
-        console.log("self.sliderValue = ", self.sliderValue);
+            console.log("getUIValue();", self.getUIValue());
 
-        // check if it's at the end
-        // if (self.sliderValue != self.min && self.sliderValue != self.max) {
-        if (self.sliderValue > self.min && self.sliderValue < self.max) {
-            setTimeout(function() {
-                self.autoFade();
-            }, self.updateTime);
-        } else {
-            self.autofading = false;
+            self.setUIValue(Math.min(self.getUIValue(), self.max));
+            self.setUIValue(Math.max(self.getUIValue(), self.min));
+
+            // check if it's at the end
+            // if (self.sliderValue != self.min && self.sliderValue != self.max) {
+            if (self.getUIValue() > self.min && self.getUIValue() < self.max) {
+                setTimeout(function() {
+                    self.autoFade();
+                }, self.updateTime);
+            } else {
+                self.autofading = false;
+            }
         }
     },
 
-    getUIValue: function(){
+    getUIValue: function() {
         return $('#slider').slider('value');
     },
 
