@@ -5,7 +5,11 @@ Crossfader = function(obj) {
 
     this.playerDecks = obj.playerDecks;
 
-    this.el = obj.el;
+    this.max = obj.max;
+    this.min = obj.min;
+    this.sliderValue = obj.sliderValue;
+
+    this.autofading = false;
 
     this.source0 = this.audioContext.createMediaElementSource(this.playerDecks[0].audio);
     this.source1 = this.audioContext.createMediaElementSource(this.playerDecks[1].audio);
@@ -24,8 +28,12 @@ Crossfader = function(obj) {
 }
 
 _.extend(Crossfader.prototype, {
-    fade: function(value, max) {
-        var x = parseInt(value) / parseInt(max);
+    calculateGains: function(value) {
+
+        self.sliderValue = value;
+        console.log(self.sliderValue);
+
+        var x = parseInt(self.sliderValue) / this.max;
 
         // Use an equal-power crossfading curve:
         var gain0value = Math.cos(x * 0.5 * Math.PI);
@@ -40,41 +48,53 @@ _.extend(Crossfader.prototype, {
     autoFade: function(direction) {
         var self = this;
 
-        if (direction && this.autofading){
-            this.autofading = false;
-            return;
+        if (self.autofading){
+            if (direction){
+                self.autofading = false;
+            }
+
+        } else {
+            if (direction) {
+                self.autoFadeDirection = direction;
+                self.autofading = true;
+            }
+        }
+        self.fadeToEnd();
+    },
+
+    fadeToEnd: function() {
+
+        var self = this;
+
+        if (self.autoFadeDirection == "left") {
+            self.sliderValue -= 1;
         }
 
-        this.autofading = true;
-
-        // change direction if there is a new one
-        if(direction){
-            this.autoFadeDirection = direction
+        if (self.autoFadeDirection == "right") {
+            self.sliderValue += 1;
         }
 
-        if (this.autoFadeDirection === 0) {  
-            self.el.value -= 1;
-        } 
+        self.calculateGains(self.sliderValue);
+        self.setUIValue(self.sliderValue);
 
-        if (this.autoFadeDirection === 1) {
-            self.el.value = self.el.value * 1 + 1;
-        }
+        console.log("self.sliderValue = ", self.sliderValue);
 
-        var tempVal = self.el.value;
-        self.el.value = Math.max(tempVal, self.el.min);
-        
-        tempVal = self.el.value;
-        self.el.value = Math.min(tempVal, self.el.max);
-
-        self.fade();
-
-        tempVal = self.el.value;
-        if (tempVal != self.el.min && tempVal != self.el.max) {
+        // check if it's at the end
+        // if (self.sliderValue != self.min && self.sliderValue != self.max) {
+        if (self.sliderValue > self.min && self.sliderValue < self.max) {
             setTimeout(function() {
                 self.autoFade();
             }, self.updateTime);
         } else {
-            this.autofading = false;
+            self.autofading = false;
         }
+    },
+
+    getUIValue: function(){
+        return $('#slider').slider('value');
+    },
+
+    setUIValue: function(value) {
+        $('#slider').slider('value', value);
     }
 });
