@@ -1,1 +1,3 @@
 public/mp3
+.meteor/versions
+packages/ytdl/.npm/
